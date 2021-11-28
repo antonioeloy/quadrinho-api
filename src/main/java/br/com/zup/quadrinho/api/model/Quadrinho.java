@@ -36,20 +36,23 @@ public class Quadrinho {
 	@NotBlank
 	private String titulo;
 
-	@Embedded
 	@NotNull
 	@Valid
+	@Embedded
 	private IsbnData isbnData;
 
 	private String descricao;
 
-	@OneToMany(mappedBy = "quadrinho", cascade = CascadeType.ALL)
 	@NotEmpty
+	@OneToMany(mappedBy = "quadrinho", cascade = CascadeType.ALL)
 	private List<PrecoQuadrinho> precos = new ArrayList<>();
 
-	@ManyToMany
-	@JoinTable(name = "autores_quadrinhos", joinColumns = @JoinColumn(name = "quadrinho_id"), inverseJoinColumns = @JoinColumn(name = "autor_id"))
 	@NotEmpty
+	@ManyToMany
+	@JoinTable(
+		name = "autores_quadrinhos", 
+		joinColumns = @JoinColumn(name = "quadrinho_id"), 
+		inverseJoinColumns = @JoinColumn(name = "autor_id"))
 	private List<Autor> autores = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "quadrinhos")
