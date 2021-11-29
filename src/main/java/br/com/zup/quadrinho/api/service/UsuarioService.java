@@ -15,6 +15,7 @@ import br.com.zup.quadrinho.api.dto.QuadrinhoDto;
 import br.com.zup.quadrinho.api.dto.QuadrinhoFormDto;
 import br.com.zup.quadrinho.api.dto.UsuarioDto;
 import br.com.zup.quadrinho.api.dto.UsuarioFormDto;
+import br.com.zup.quadrinho.api.exception.DadoEmUsoException;
 import br.com.zup.quadrinho.api.exception.UsuarioJaPossuiQuadrinhoException;
 import br.com.zup.quadrinho.api.infra.MarvelApiFeignClient;
 import br.com.zup.quadrinho.api.mapper.AutorMapper;
@@ -54,6 +55,16 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioDto cadastrar(UsuarioFormDto usuarioFormDto) {
 		
+		Boolean existeEmail = usuarioRepository.existsByEmail(usuarioFormDto.getEmail());	
+		if (existeEmail) {
+			throw new DadoEmUsoException("email");
+		}
+		
+		Boolean existeCpf = usuarioRepository.existsByCpf(usuarioFormDto.getCpf());
+		if (existeCpf) {
+			throw new DadoEmUsoException("cpf");
+		}
+		
 		Usuario usuario = usuarioMapper.toUsuario(usuarioFormDto);
 		
 		usuarioRepository.save(usuario);
@@ -87,6 +98,12 @@ public class UsuarioService {
 			ComicDataWrapperDto comicDataWrapperDto = marvelApiFeignClient.getComic(quadrinhoFormDto.getComicId());
 			
 			quadrinho = quadrinhoMapper.toQuadrinho(comicDataWrapperDto);
+			
+			Boolean existeIsbn = quadrinhoRepository.existsByIsbnData_Isbn(quadrinho.getIsbnData().getIsbn());
+			
+			if (existeIsbn) {
+				throw new DadoEmUsoException("isbn");
+			}
 			
 			List<Autor> autores = autorMapper.toListAutor(comicDataWrapperDto);
 			
