@@ -23,7 +23,10 @@ import br.com.zup.quadrinho.api.dto.QuadrinhoFormDto;
 import br.com.zup.quadrinho.api.dto.UsuarioDto;
 import br.com.zup.quadrinho.api.dto.UsuarioFormDto;
 import br.com.zup.quadrinho.api.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(tags = "Usuários")
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -31,6 +34,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@ApiOperation("Cadastra um usuário")
 	@PostMapping
 	public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioFormDto usuarioFormDto,
 			UriComponentsBuilder uriBuilder) {
@@ -46,6 +50,7 @@ public class UsuarioController {
 		
 	}
 	
+	@ApiOperation("Cadastra um quadrinho para um determinado usuário")
 	@PostMapping("/{usuarioId}/quadrinhos")
 	public ResponseEntity<QuadrinhoDto> cadastrarQuadrinho(@PathVariable @NotNull Long usuarioId, 
 			@RequestBody @Valid QuadrinhoFormDto quadrinhoFormDto, 
@@ -62,6 +67,7 @@ public class UsuarioController {
 		
 	}
 	
+	@ApiOperation("Consulta a lista de usuários cadastrados na aplicação")
 	@GetMapping
 	public Page<UsuarioDto> listar(@PageableDefault(size = 5) Pageable paginacao) {
 		
@@ -71,6 +77,7 @@ public class UsuarioController {
 		
 	}
 	
+	@ApiOperation("Consulta a lista de quadrinhos de um determinado usuário")
 	@GetMapping("/{usuarioId}/quadrinhos")
 	public Page<QuadrinhoDto> listarQuadrinhos(@PathVariable @NotNull Long usuarioId,
 			@PageableDefault(size = 5) Pageable paginacao) {
