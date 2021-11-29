@@ -6,6 +6,10 @@ import br.com.zup.quadrinho.api.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
+	public Boolean existsByEmail(String email);
+	
+	public Boolean existsByCpf(String cpf);
+	
 	public Boolean existsByIdAndQuadrinhos_ComicId(Long usuarioId, Integer comicId);
 
 }

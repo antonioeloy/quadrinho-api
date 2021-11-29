@@ -9,6 +9,8 @@ import br.com.zup.quadrinho.api.model.Quadrinho;
 public interface QuadrinhoRepository extends JpaRepository<Quadrinho, Long> {
 
 	public Boolean existsByComicId(Integer comicId);
+	
+	public Boolean existsByIsbnData_Isbn(String isbn);
 
 	public Quadrinho getByComicId(Integer comicId);
 	
