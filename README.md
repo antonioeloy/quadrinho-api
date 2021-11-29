@@ -68,7 +68,7 @@ $ docker-compose up
 
 Para testar a API, você pode utilizar a ferramenta [Postman](https://www.postman.com/).
 
-É possível também testar a aplicação acessando a documentação gerada com a biblioteca [SpringFox Swagger](http://springfox.github.io/springfox/).
+Também é possível testar a aplicação acessando a documentação gerada com a biblioteca [SpringFox Swagger](http://springfox.github.io/springfox/).
 
 ```
 http://localhost:8080/swagger-ui.html
