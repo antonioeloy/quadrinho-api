@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+            
+    quadrinho_app:
+        build: .
+        restart: always
+        ports:
+            - 8080:8080
+        environment:
+            - DATASOURCE_URL=jdbc:h2:mem:comics_prod
+            - DATASOURCE_USERNAME=sa
+            - DATASOURCE_PASSWORD=
+            - SPRING_PROFILES_ACTIVE=prod
+            - FEIGN_CLIENT_NAME=marvel-api
+            - FEIGN_CLIENT_URL=https://gateway.marvel.com
+            - API_MARVEL_TS=1637870331080
+            - API_MARVEL_API_KEY=fdf643a95c8ffaffac66c7f0bb650bf3
+            - API_MARVEL_HASH=2badbecbd6efb6835709cdc90e710697
